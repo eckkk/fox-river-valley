@@ -58,11 +58,15 @@ class ReleaseVariantTests(unittest.TestCase):
 
         self.assertIn("fox_river_valley_text.py", names)
         self.assertIn("TEXT_ONLY_PLAYER_GUIDE.md", names)
+        self.assertIn("LICENSE", names)
+        self.assertIn("CHANGELOG.md", names)
         self.assertIn("fox_river_valley/engine.py", names)
         self.assertFalse(any(name.startswith("observer/") for name in names))
         self.assertNotIn("Start_Fox_River_Valley.bat", names)
         self.assertNotIn("scripts/run_observer_server.py", names)
         self.assertNotIn("scripts/start_observer.ps1", names)
+        self.assertNotIn("pytest.py", names)
+        self.assertIn("scripts/run_tests.py", names)
 
     def test_observer_package_keeps_live_console_bootstrap(self):
         module = load_package_module()
@@ -75,8 +79,12 @@ class ReleaseVariantTests(unittest.TestCase):
 
         self.assertIn("observer/observer.html", names)
         self.assertIn("observer/observer_state.json", names)
+        self.assertIn("LICENSE", names)
+        self.assertIn("CHANGELOG.md", names)
         self.assertIn("Start_Fox_River_Valley.bat", names)
         self.assertIn("scripts/run_observer_server.py", names)
+        self.assertNotIn("pytest.py", names)
+        self.assertIn("scripts/run_tests.py", names)
         self.assertEqual(observer_state["screen"], "start_screen")
 
     def test_script_builds_both_release_variants_by_default(self):
@@ -101,6 +109,26 @@ class ReleaseVariantTests(unittest.TestCase):
         self.assertIn("from fox_river_valley_text import cmd, new_game", text_guide)
         self.assertIn("Text-only", ai_guide)
         self.assertIn("Observer Console", ai_guide)
+
+    def test_public_readme_has_player_game_introduction(self):
+        readme = Path("README.md").read_text(encoding="utf-8")
+
+        self.assertIn("## Game Introduction / 游戏介绍", readme)
+        self.assertIn("text-command cozy survival and family sandbox", readme)
+        self.assertIn("Gather reeds, fish for dinner, build a shelter", readme)
+        self.assertIn("The focus is not combat", readme)
+        self.assertIn("Observer Console", readme)
+        self.assertIn("狐狸河谷是一款文字指令驱动", readme)
+
+    def test_license_and_changelog_exist_for_public_release(self):
+        license_text = Path("LICENSE").read_text(encoding="utf-8")
+        changelog = Path("CHANGELOG.md").read_text(encoding="utf-8")
+
+        self.assertIn("MIT License", license_text)
+        self.assertIn("## P1.2", changelog)
+        self.assertIn("text-only package", changelog)
+        self.assertIn("Observer Console package", changelog)
+        self.assertIn("352 tests passed before the P1.2 public release", changelog)
 
     def test_release_packages_do_not_embed_local_dev_paths(self):
         module = load_package_module()

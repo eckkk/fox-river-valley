@@ -1,6 +1,20 @@
 # Fox River Valley / 狐狸河谷
 
-Fox River Valley is a Python 3.11+ cozy survival / family sandbox played through text commands.
+## Game Introduction / 游戏介绍
+
+Fox River Valley is a small text-command cozy survival and family sandbox.
+You wake in a misty valley with little more than your hands, a river, a forest, and the choice to keep going.
+Gather reeds, fish for dinner, build a shelter, light a campfire, plant foxbells, name your home, and slowly turn a wild place into a shared life.
+
+The game can be played solo, with a custom companion, or through the included Silas/Yaya demo profile.
+It is designed for human players, AI blind play, and human-AI co-play: the AI reads only public commands and state lines, while the human can watch the Observer Console and decide when to step in.
+The focus is not combat. It is the slow change from surviving another day to having a home.
+
+狐狸河谷是一款文字指令驱动的温柔生存/家庭沙盒游戏：从采集、钓鱼、搭庇护所开始，一点点把荒野变成家。
+
+## Technical API
+
+Fox River Valley is a Python 3.11+ game played through text commands.
 
 The public API is intentionally small:
 
@@ -242,6 +256,8 @@ __pycache__/
 
 ## Documentation
 
+- `LICENSE`: MIT License for the public release.
+- `CHANGELOG.md`: public release notes.
 - `AI_PLAYER_GUIDE.md`: fair-play rules for external AI players.
 - `CO_PLAY_PROTOCOL.md`: how an AI should co-play with a human instead of speedrunning.
 - `PLAY_SESSION_TEMPLATE.md`: turn template for shared play.

@@ -97,9 +97,9 @@ class P02ObserverConsoleReleaseTests(unittest.TestCase):
         self.assertFalse(observer_paths()["state"].exists())
         self.assertIn("start-mode-solo", observer_paths()["html"].read_text(encoding="utf-8"))
 
-    def test_pytest_q_entrypoint_runs_unittest_suite(self):
+    def test_run_tests_entrypoint_runs_unittest_suite(self):
         result = subprocess.run(
-            [sys.executable, "-m", "pytest", "-q", "tests/test_commands.py"],
+            [sys.executable, "scripts/run_tests.py", "-q", "tests/test_commands.py"],
             cwd=Path.cwd(),
             text=True,
             capture_output=True,
@@ -114,7 +114,7 @@ class P02ObserverConsoleReleaseTests(unittest.TestCase):
         text = script.read_text(encoding="utf-8")
 
         for needle in (
-            "python -m pytest -q",
+            "python -m unittest discover -v",
             "long_arc_smoke.py",
             "forbidden path scan",
             "start_screen",

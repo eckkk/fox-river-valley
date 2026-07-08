@@ -175,13 +175,13 @@ def _ai_playtest_sleep_guard_check() -> None:
 
 def main() -> int:
     # Required release checks:
-    # python -m pytest -q
+    # python -m unittest discover -v
     # python scripts/long_arc_smoke.py
     # forbidden path scan
     # clean package start_screen
     # Silas-Yaya demo follows player
     # Cozy faint, Survival Game Over, AI Playtest anti-skip
-    _run([sys.executable, "-m", "pytest", "-q"])
+    _run([sys.executable, "-m", "unittest", "discover", "-v"])
     _run([sys.executable, "scripts/long_arc_smoke.py"])
     _package_checks()
     _fresh_start_check()

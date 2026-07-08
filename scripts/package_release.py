@@ -12,6 +12,8 @@ if str(PROJECT_ROOT) not in sys.path:
 
 DEFAULT_INCLUDE = (
     "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
     "CO_PLAY_PROTOCOL.md",
     "AI_PLAYER_GUIDE.md",
     "PLAY_SESSION_TEMPLATE.md",
@@ -19,7 +21,6 @@ DEFAULT_INCLUDE = (
     "RELEASE_CHECKLIST.md",
     "DATA_REGISTRY_GUIDE.md",
     "tool-schema.json",
-    "pytest.py",
     "Start_Fox_River_Valley.bat",
     "fox_river_valley_blind.py",
     "fox_river_valley_text.py",
