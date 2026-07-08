@@ -2,8 +2,10 @@
 
 Fox River Valley can be tested in two different ways:
 
-- QA Playtest: verify commands, state transitions, saves, and edge cases. This can use short scripted sequences, but should still record what was tested.
-- Cozy Co-play: accompany a human player through the valley. The goal is shared attention, explanation, and choice, not clearing systems quickly.
+- QA Playtest: verify commands, state transitions, saves, and edge cases. This
+  can use short scripted sequences, but should still record what was tested.
+- Cozy Co-play: accompany a human player through the valley. The goal is shared
+  attention, explanation, and choice, not clearing systems quickly.
 
 ## Core Rule
 
@@ -15,7 +17,9 @@ Fox River Valley can be tested in two different ways:
 
 ## Startup Rule
 
-Before `new_game(...)`, the AI player should start or confirm the live observer page. If the AI cannot launch local commands, ask the human to open `Start_Fox_River_Valley.bat` first.
+Before `new_game(...)`, the AI player should start or confirm the live observer
+page. If the AI cannot launch local commands, ask the human to open
+`Start_Fox_River_Valley.bat` first.
 
 Do not choose Yaya by default. Start mode must be chosen by the human:
 
@@ -61,8 +65,10 @@ C. 先去 forest gather
 ## Command Pace
 
 - Default pace: one command per turn.
-- Use two commands only when the first command is purely informational, such as `status`, `recap`, `options`, `look`, `inventory`, or `check companion`.
-- Stop after `sleep`, `kit arrival`, `relationship` stage changes, new discoveries, major builds, or journal-worthy events.
+- Use two commands only when the first command is purely informational, such as
+  `status`, `recap`, `options`, `look`, `inventory`, or `check companion`.
+- Stop after `sleep`, `kit arrival`, `relationship` stage changes, new
+  discoveries, major builds, or journal-worthy events.
 - Ask before spending scarce resources unless the human already gave that plan.
 
 ## Recovery Tools

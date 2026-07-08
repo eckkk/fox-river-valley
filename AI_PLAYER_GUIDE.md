@@ -6,16 +6,23 @@ Fox River Valley is meant to be played through `new_game(...)` and `cmd(...)`, n
 
 Fox River Valley has two public play packages:
 
-- Text-only: use `fox_river_valley_p1_2_text_only.zip` and import `fox_river_valley_text`. This is the low-token route with no live map files.
-- Observer Console: use `fox_river_valley_p1_2_observer.zip`, start the local observer page, then play through public commands.
+- Text-only: use `fox_river_valley_p1_2_text_only.zip` and import
+  `fox_river_valley_text`. This is the low-token route with no live map files.
+- Observer Console: use `fox_river_valley_p1_2_observer.zip`, start the local
+  observer page, then play through public commands.
 
 Choose the route the human asked for. Do not force every player into the Observer Console.
 
 ## Required startup behavior
 
-External AI players such as Kimi must not write saves or observer files into temporary PythonRun folders. Use the user's project root as the runtime home.
+External AI players such as Kimi must not write saves or observer files into
+temporary PythonRun folders. Use the user's project root as the runtime home.
 
-For Observer Console play, 先启动实时观战页，再开始 new_game。If the AI can run local commands, start `Start_Fox_River_Valley.bat` or `python -m fox_river_valley.play` before the first game command. If the AI cannot launch local commands, ask the human to double-click `Start_Fox_River_Valley.bat` first.
+For Observer Console play, 先启动实时观战页，再开始 new_game。
+If the AI can run local commands, start `Start_Fox_River_Valley.bat` or
+`python -m fox_river_valley.play` before the first game command.
+If the AI cannot launch local commands, ask the human to double-click
+`Start_Fox_River_Valley.bat` first.
 
 For Text-only play, do not start the observer server. Use:
 
@@ -36,7 +43,9 @@ print(cmd("observer"))
 # Ask the human player which start mode they want before calling new_game.
 ```
 
-If the human player has already opened `Start_Fox_River_Valley.bat`, keep using the same `FRV_HOME`. In text-only play, `cmd("observer")` is not required; use `cmd("runtime")` if paths need checking.
+If the human player has already opened `Start_Fox_River_Valley.bat`, keep using
+the same `FRV_HOME`. In text-only play, `cmd("observer")` is not required; use
+`cmd("runtime")` if paths need checking.
 
 ## Start mode protocol
 
@@ -54,7 +63,8 @@ C. Silas/Yaya demo：new_game("12071008", companion_name="Yaya", companion_profi
 Rules:
 
 - Default public start is solo.
-- Custom family mode should use a human-provided companion name, `companion_profile="default"`, and optional human-provided `family_species`.
+- Custom family mode should use a human-provided companion name,
+  `companion_profile="default"`, and optional human-provided `family_species`.
 - Silas/Yaya demo is allowed only when the human explicitly chooses it.
 - Other AI players must be able to input their own name, profile, and kit species.
 

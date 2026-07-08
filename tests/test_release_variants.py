@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import ast
 import tempfile
 import unittest
 import zipfile
@@ -116,8 +117,8 @@ class ReleaseVariantTests(unittest.TestCase):
         self.assertIn("## Game Introduction / 游戏介绍", readme)
         self.assertIn("built for AI blind play and human observation", readme)
         self.assertIn("AI-playable cozy survival and family sandbox", readme)
-        self.assertIn("Silas / 程知寒", readme)
-        self.assertNotIn("Cheng Zhihan", readme)
+        self.assertIn("Silas / Cheng Zhihan to play through text", readme)
+        self.assertIn("Cheng Zhihan's Chinese name is 程知寒", readme)
         self.assertNotIn("程志涵", readme)
         self.assertIn("public command outputs and `STATE {...}` lines only", readme)
         self.assertIn("## What Makes It Different", readme)
@@ -138,6 +139,30 @@ class ReleaseVariantTests(unittest.TestCase):
         self.assertIn("text-only package", changelog)
         self.assertIn("Observer Console package", changelog)
         self.assertIn("352 tests passed before the P1.2 public release", changelog)
+
+    def test_public_docs_are_not_flattened(self):
+        expected_min_lines = {
+            "README.md": 80,
+            ".gitignore": 20,
+            "LICENSE": 15,
+            "CHANGELOG.md": 5,
+            "AI_PLAYER_GUIDE.md": 40,
+            "CO_PLAY_PROTOCOL.md": 40,
+            "TEXT_ONLY_PLAYER_GUIDE.md": 20,
+            "DATA_REGISTRY_GUIDE.md": 25,
+            "RELEASE_CHECKLIST.md": 20,
+        }
+
+        for path_text, minimum in expected_min_lines.items():
+            lines = Path(path_text).read_text(encoding="utf-8").splitlines()
+            self.assertGreaterEqual(len(lines), minimum, path_text)
+
+        gitignore = Path(".gitignore").read_text(encoding="utf-8").splitlines()
+        for rule in ("saves/", "observer/", "dist/", "*.zip", "__pycache__/"):
+            self.assertIn(rule, gitignore)
+
+        run_tests = Path("scripts/run_tests.py").read_text(encoding="utf-8")
+        ast.parse(run_tests)
 
     def test_release_packages_do_not_embed_local_dev_paths(self):
         module = load_package_module()

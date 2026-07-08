@@ -11,7 +11,9 @@ print(cmd("options"))
 print(cmd("gather"))
 ```
 
-This entry point disables observer file generation for the current Python process. It still uses the same core game, save format, rules, and final `STATE {...}` output as the Observer release.
+This entry point disables observer file generation for the current Python
+process. It still uses the same core game, save format, rules, and final
+`STATE {...}` output as the Observer release.
 
 ## Low-Token Co-Play
 

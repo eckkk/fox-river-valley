@@ -5,8 +5,12 @@
 Fox River Valley is a cozy survival sandbox built for AI blind play and human observation.
 
 Fox River Valley is an AI-playable cozy survival and family sandbox.
-It was first built for Silas / 程知寒 to play through text commands, then expanded into a fair blind-play environment for other AI players.
-The AI plays by reading public command outputs and `STATE {...}` lines only; the human can watch through the Observer Console, co-play, interrupt, or judge the run.
+It was first built for Silas / Cheng Zhihan to play through text
+commands, then expanded into a fair blind-play environment for other AI players.
+Cheng Zhihan's Chinese name is 程知寒.
+The AI plays by reading public command outputs and `STATE {...}` lines only; the
+human can watch through the Observer Console, co-play, interrupt, or judge the
+run.
 
 《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI 通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
 
@@ -14,7 +18,8 @@ The AI plays by reading public command outputs and `STATE {...}` lines only; the
 
 - AI-first play: the game is designed so AI agents can play through text commands without reading source tables.
 - Fair blind protocol: every action returns short narrative text plus one final `STATE {...}` line.
-- Human observer: the browser Observer Console lets a human watch the AI's map, status, companion, wish, and latest output.
+- Human observer: the browser Observer Console lets a human watch the AI's map,
+  status, companion, wish, and latest output.
 - Cozy family arc: the goal is not combat-first survival, but turning a misty valley into a shared home.
 - Co-play ready: humans can let the AI choose, step in at key moments, or play together turn by turn.
 
@@ -67,9 +72,12 @@ Observer Console start:
 
 玩家最短路径：双击 Start_Fox_River_Valley.bat，浏览器会打开观战页，然后在页面里选择开局。AI 或玩家执行命令后，页面会自动更新。
 
-如果双击后浏览器显示 ERR_CONNECTION_REFUSED，请保持启动窗口打开；launcher 会自动寻找可用 Python。也可以从项目根目录运行 `python -m fox_river_valley.play` 作为一键 Python fallback。
+如果双击后浏览器显示 ERR_CONNECTION_REFUSED，请保持启动窗口打开；
+launcher 会自动寻找可用 Python。也可以从项目根目录运行
+`python -m fox_river_valley.play` 作为一键 Python fallback。
 
-The observer page is only a local console. The real game rules still run in Python through `new_game(...)` and `cmd(...)`.
+The observer page is only a local console. The real game rules still run in
+Python through `new_game(...)` and `cmd(...)`.
 
 ## Human Quick Start
 
@@ -90,7 +98,9 @@ Solo is the default. Family mode starts only when you pass a companion name.
 
 ## AI Blind Play
 
-AI players should use public commands only. Do not inspect source tables, probability tables, hidden conditions, or rare material registries before making play decisions. In short: 不读源码表作弊。
+AI players should use public commands only. Do not inspect source tables,
+probability tables, hidden conditions, or rare material registries before making
+play decisions. In short: 不读源码表作弊。
 
 Public start modes:
 
@@ -100,7 +110,9 @@ Public start modes:
 示例家庭：new_game("12071008", companion_name="Yaya", companion_profile="silas_yaya")
 ```
 
-`Yaya` is the Silas/Yaya demo profile，不是默认路线，也不是全服默认伴侣。External AI players should ask the human whether they want solo, custom family, or the Silas/Yaya demo profile before calling `new_game(...)`.
+`Yaya` is the Silas/Yaya demo profile，不是默认路线，也不是全服默认伴侣。
+External AI players should ask the human whether they want solo, custom family,
+or the Silas/Yaya demo profile before calling `new_game(...)`.
 
 Text-only AI entry:
 
@@ -114,7 +126,8 @@ Observer AI entry:
 from fox_river_valley_blind import cmd, new_game
 ```
 
-For Observer Console play, start or confirm the local observer page before `new_game(...)`. For text-only play, no observer server is required.
+For Observer Console play, start or confirm the local observer page before
+`new_game(...)`. For text-only play, no observer server is required.
 
 Recommended AI rhythm:
 
@@ -125,7 +138,10 @@ Recommended AI rhythm:
 
 ## AI Co-play
 
-AI players should follow `CO_PLAY_PROTOCOL.md`: explain the current state, run only one or two commands, interpret the result, and ask the human what to do next. 每回合最多执行 1-2 条命令。This keeps the game from turning into an automatic speedrun.
+AI players should follow `CO_PLAY_PROTOCOL.md`: explain the current state, run
+only one or two commands, interpret the result, and ask the human what to do
+next. 每回合最多执行 1-2 条命令。This keeps the game from turning into an automatic
+speedrun.
 
 ## Game Scope
 
