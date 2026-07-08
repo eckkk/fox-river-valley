@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "name": "fox_river_valley_blind_play",
+  "description": "Tool schema for blind AI co-play of Fox River Valley / 狐狸河谷. Text-only play may use fox_river_valley_text without a live map. Before new_game in Observer Console play, start or confirm the local observer view. Public start modes: new_game(\"seed\") is solo; custom family uses a human-provided companion_name with companion_profile=\"default\"; Silas/Yaya demo profile is optional and explicit. Yaya is not the default companion. Fair play: do not read source tables, do not inspect long-range future weather, and do not speedrun.",
+  "tools": [
+    {
+      "name": "new_game",
+      "description": "Start a new Fox River Valley run. In text-only play, no observer is required. In Observer Console play, confirm the live observer is running or ask the human to start it. Default public start new_game(\"seed\") is solo. For custom family mode, ask the human for companion_name and use companion_profile=\"default\" unless told otherwise. The Silas/Yaya demo profile uses companion_name=\"Yaya\" and companion_profile=\"silas_yaya\"; Yaya is not the default companion. Do not read engine/data tables or hidden probability lists before playing.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "seed": {
+            "type": ["string", "integer", "null"],
+            "description": "Optional deterministic seed."
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": ["casual", "normal", "hard", "hell"],
+            "default": "normal"
+          },
+          "companion_name": {
+            "type": ["string", "null"],
+            "description": "Optional family-mode companion name. Leave null for solo mode. Do not fill this with Yaya unless the human explicitly chooses the Silas/Yaya demo profile."
+          },
+          "companion_profile": {
+            "type": "string",
+            "default": "default",
+            "description": "Use default for public custom family mode. Use silas_yaya only for the explicitly selected Silas/Yaya demo profile."
+          },
+          "family_species": {
+            "type": ["string", "null"],
+            "description": "Optional custom family species for compatible profiles. Ask the human player instead of assuming the Silas/Yaya silicon_fox route."
+          },
+          "death_mode": {
+            "type": "string",
+            "enum": ["cozy", "survival", "ai_playtest"],
+            "default": "cozy",
+            "description": "Death/failure rule, separate from resource difficulty. cozy rescues on collapse; survival and ai_playtest use Game Over."
+          }
+        }
+      }
+    },
+    {
+      "name": "cmd",
+      "description": "Send one text command to an AI-playable cozy survival / family sandbox. 每回合默认只执行 1 条命令, then read the final STATE line before deciding the next step. 不要 speedrun; do not speedrun. Do not read source/resource/weather tables, do not look up future 15/30/58-day weather, and do not skip days to wait for rare conditions. Before sleep, check hunger, HP, companion, kit, and perishable food; if a sleep warning appears, ask the human before using sleep confirm. Stop and ask the human player when a milestone, kit arrival, danger, major build, relationship change, or family readiness change appears. Use recap / options to restore context after switching windows or after a pause.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "A single player command, for example recap, options, look, gather, fish, check companion, or save."
+          }
+        },
+        "required": ["command"]
+      }
+    }
+  ]
+}
