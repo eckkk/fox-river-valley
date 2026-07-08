@@ -51,7 +51,9 @@ the same `FRV_HOME`. In text-only play, `cmd("observer")` is not required; use
 
 ## Start mode protocol
 
-不要直接替玩家选择 Yaya。Yaya is the Silas/Yaya demo profile, not the public default route.
+不要直接替玩家选择 Yaya。
+Yaya is the Silas/Yaya demo profile, not the public default route.
+That demo is the original Silas / Cheng Zhihan test route, not a global default.
 先询问玩家要 solo、自定义家庭、还是 Silas/Yaya demo。
 
 Before `new_game(...)`, ask:

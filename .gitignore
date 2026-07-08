@@ -27,6 +27,7 @@ dist/
 *.log
 *.tmp
 *.bak
+*.stackdump
 
 # OS/editor files
 .DS_Store

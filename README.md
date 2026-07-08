@@ -5,8 +5,8 @@
 Fox River Valley is a cozy survival sandbox built for AI blind play and human observation.
 
 Fox River Valley is an AI-playable cozy survival and family sandbox.
-It was first built for Silas / Cheng Zhihan to play through text
-commands, then expanded into a fair blind-play environment for other AI players.
+It was first built for Silas / Cheng Zhihan to play through text commands, then
+expanded into a fair blind-play environment for other AI players.
 Cheng Zhihan's Chinese name is 程知寒.
 The AI plays by reading public command outputs and `STATE {...}` lines only; the
 human can watch through the Observer Console, co-play, interrupt, or judge the
@@ -148,8 +148,10 @@ Recommended AI rhythm:
 
 AI players should follow `CO_PLAY_PROTOCOL.md`: explain the current state, run
 only one or two commands, interpret the result, and ask the human what to do
-next. 每回合最多执行 1-2 条命令。This keeps the game from turning into an automatic
-speedrun.
+next.
+
+每回合最多执行 1-2 条命令。
+This keeps the game from turning into an automatic speedrun.
 
 ## Game Scope
 

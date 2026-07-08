@@ -34,3 +34,5 @@ new_game("12071008", companion_name="Yaya", companion_profile="silas_yaya")
 ```
 
 The Silas/Yaya profile is a demo route, not the default route.
+For public blind play, start solo unless the human explicitly chooses a family
+mode.

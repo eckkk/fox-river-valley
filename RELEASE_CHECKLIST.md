@@ -40,3 +40,5 @@ Use this before publishing a zip or handing the build to another AI player.
 - `CO_PLAY_PROTOCOL.md` and `PLAY_SESSION_TEMPLATE.md` are included.
 - `DATA_REGISTRY_GUIDE.md` explains how to add registry items without making Silas/Yaya
   defaults global.
+- Raw Markdown files use real line breaks and are not collapsed into a few
+  long lines.

@@ -3,6 +3,9 @@
 This guide is for future maintainers adding small data entries without turning Fox River
 Valley into a bigger system.
 
+Keep registry changes data-scoped. Do not make a Silas/Yaya demo preference into
+a public default unless the design explicitly says so.
+
 ## flower variety
 
 Add flower varieties in the flower registry/table only. Each variety should have

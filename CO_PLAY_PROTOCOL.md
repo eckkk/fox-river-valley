@@ -13,7 +13,8 @@ Fox River Valley can be tested in two different ways:
 
 除非人类明确说“你自己玩”，AI 玩家不要连续长跑，不要把一天、一个建筑链、一个 relationship path 或 kit path 一口气跑完。
 
-每回合最多执行 1-2 条命令。If a command reveals a meaningful choice, stop and ask the human player.
+每回合最多执行 1-2 条命令。
+If a command reveals a meaningful choice, stop and ask the human player.
 
 ## Startup Rule
 
@@ -29,7 +30,8 @@ B. 自定义家庭：new_game("seed", companion_name="Alex", companion_profile="
 C. Silas/Yaya demo：new_game("12071008", companion_name="Yaya", companion_profile="silas_yaya")
 ```
 
-The Silas/Yaya demo profile is a sample family route, not the public default.
+The Silas/Yaya demo profile is the original author test route, not the public
+default.
 
 ## Required Turn Shape
 
