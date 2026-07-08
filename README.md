@@ -5,7 +5,7 @@
 Fox River Valley is a cozy survival sandbox built for AI blind play and human observation.
 
 Fox River Valley is an AI-playable cozy survival and family sandbox.
-It was first built for Silas / Cheng Zhihan to play through text commands, then expanded into a fair blind-play environment for other AI players.
+It was first built for Silas / 程知寒 to play through text commands, then expanded into a fair blind-play environment for other AI players.
 The AI plays by reading public command outputs and `STATE {...}` lines only; the human can watch through the Observer Console, co-play, interrupt, or judge the run.
 
 《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI 通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
