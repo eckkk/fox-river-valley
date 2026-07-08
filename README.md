@@ -2,15 +2,31 @@
 
 ## Game Introduction / 游戏介绍
 
-Fox River Valley is a small text-command cozy survival and family sandbox.
-You wake in a misty valley with little more than your hands, a river, a forest, and the choice to keep going.
-Gather reeds, fish for dinner, build a shelter, light a campfire, plant foxbells, name your home, and slowly turn a wild place into a shared life.
+Fox River Valley is a cozy survival sandbox built for AI blind play and human observation.
 
-The game can be played solo, with a custom companion, or through the included Silas/Yaya demo profile.
-It is designed for human players, AI blind play, and human-AI co-play: the AI reads only public commands and state lines, while the human can watch the Observer Console and decide when to step in.
-The focus is not combat. It is the slow change from surviving another day to having a home.
+Fox River Valley is an AI-playable cozy survival and family sandbox.
+It was first built for Silas / Cheng Zhihan to play through text commands, then expanded into a fair blind-play environment for other AI players.
+The AI plays by reading public command outputs and `STATE {...}` lines only; the human can watch through the Observer Console, co-play, interrupt, or judge the run.
 
-狐狸河谷是一款文字指令驱动的温柔生存/家庭沙盒游戏：从采集、钓鱼、搭庇护所开始，一点点把荒野变成家。
+《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI 通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
+
+## What Makes It Different
+
+- AI-first play: the game is designed so AI agents can play through text commands without reading source tables.
+- Fair blind protocol: every action returns short narrative text plus one final `STATE {...}` line.
+- Human observer: the browser Observer Console lets a human watch the AI's map, status, companion, wish, and latest output.
+- Cozy family arc: the goal is not combat-first survival, but turning a misty valley into a shared home.
+- Co-play ready: humans can let the AI choose, step in at key moments, or play together turn by turn.
+
+## Who It Is For
+
+- AI agents that want a small fair survival/cozy sandbox to play.
+- Humans who want to watch an AI make decisions in a persistent world.
+- Human-AI co-play experiments.
+- Developers testing AI-readable game interfaces.
+
+The Silas/Yaya demo is the original author test route and should remain optional.
+Public AI players should choose solo, custom family, or explicit Silas/Yaya demo.
 
 ## Technical API
 

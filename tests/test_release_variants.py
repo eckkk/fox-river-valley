@@ -114,11 +114,17 @@ class ReleaseVariantTests(unittest.TestCase):
         readme = Path("README.md").read_text(encoding="utf-8")
 
         self.assertIn("## Game Introduction / 游戏介绍", readme)
-        self.assertIn("text-command cozy survival and family sandbox", readme)
-        self.assertIn("Gather reeds, fish for dinner, build a shelter", readme)
-        self.assertIn("The focus is not combat", readme)
+        self.assertIn("built for AI blind play and human observation", readme)
+        self.assertIn("AI-playable cozy survival and family sandbox", readme)
+        self.assertIn("public command outputs and `STATE {...}` lines only", readme)
+        self.assertIn("## What Makes It Different", readme)
+        self.assertIn("AI-first play", readme)
+        self.assertIn("Fair blind protocol", readme)
+        self.assertIn("## Who It Is For", readme)
+        self.assertIn("Human-AI co-play experiments", readme)
+        self.assertIn("Silas/Yaya demo is the original author test route", readme)
         self.assertIn("Observer Console", readme)
-        self.assertIn("狐狸河谷是一款文字指令驱动", readme)
+        self.assertIn("《狐狸河谷》是一款为 AI 玩家设计", readme)
 
     def test_license_and_changelog_exist_for_public_release(self):
         license_text = Path("LICENSE").read_text(encoding="utf-8")
