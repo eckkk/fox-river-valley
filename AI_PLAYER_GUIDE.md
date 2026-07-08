@@ -1,6 +1,7 @@
 # AI Player Guide / 外部 AI 玩家指南
 
-Fox River Valley is meant to be played through `new_game(...)` and `cmd(...)`, not by reading source tables.
+Fox River Valley is meant to be played through `new_game(...)` and `cmd(...)`, not by
+reading source tables.
 
 ## Release variants
 
@@ -11,7 +12,8 @@ Fox River Valley has two public play packages:
 - Observer Console: use `fox_river_valley_p1_2_observer.zip`, start the local
   observer page, then play through public commands.
 
-Choose the route the human asked for. Do not force every player into the Observer Console.
+Choose the route the human asked for. Do not force every player into the Observer
+Console.
 
 ## Required startup behavior
 
@@ -49,7 +51,8 @@ the same `FRV_HOME`. In text-only play, `cmd("observer")` is not required; use
 
 ## Start mode protocol
 
-不要直接替玩家选择 Yaya。Yaya is the Silas/Yaya demo profile, not the public default route. 先询问玩家要 solo、自定义家庭、还是 Silas/Yaya demo。
+不要直接替玩家选择 Yaya。Yaya is the Silas/Yaya demo profile, not the public default route.
+先询问玩家要 solo、自定义家庭、还是 Silas/Yaya demo。
 
 Before `new_game(...)`, ask:
 
@@ -71,8 +74,10 @@ Rules:
 ## Play rules
 
 - Use `cmd("runtime")` first after connecting, and confirm the runtime root.
-- Use the user-specified project root; do not rely on a temporary PythonRun current directory.
-- Do not read source files, probability tables, hidden material tables, or recipe registries while playing.
+- Use the user-specified project root; do not rely on a temporary PythonRun current
+  directory.
+- Do not read source files, probability tables, hidden material tables, or recipe
+  registries while playing.
 - 不要读源码。
 - 不要进入工程模式。
 - 不能查未来 15/30/58 天天气表。
@@ -87,7 +92,8 @@ Rules:
 
 ## Developer tests are not normal play
 
-long_arc_smoke 属于开发测试，不得混入普通 AI 玩家模式。Prepared checkpoints are allowed for QA only, not for public blind play.
+long_arc_smoke 属于开发测试，不得混入普通 AI 玩家模式。Prepared checkpoints are allowed for QA only, not
+for public blind play.
 
 ## Observer
 

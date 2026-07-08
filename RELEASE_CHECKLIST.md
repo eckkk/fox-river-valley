@@ -14,12 +14,16 @@ Use this before publishing a zip or handing the build to another AI player.
 
 ## Smoke Tests
 
-- Human quick smoke: start `new_game("12071008")`, then run `look`, `options`, `recap`, `save`, `load`.
-- blind play smoke test: import from `fox_river_valley_blind`, start a family game, then run `recap` and `options`.
-- co-play smoke test: follow one turn from `PLAY_SESSION_TEMPLATE.md` and stop after offering choices.
+- Human quick smoke: start `new_game("12071008")`, then run `look`, `options`, `recap`,
+  `save`, `load`.
+- blind play smoke test: import from `fox_river_valley_blind`, start a family game, then
+  run `recap` and `options`.
+- co-play smoke test: follow one turn from `PLAY_SESSION_TEMPLATE.md` and stop after
+  offering choices.
 - save/load smoke test: create a game, build or mutate a simple home checkpoint,
   save, load, and compare key STATE fields.
-- long arc smoke: run `python scripts/long_arc_smoke.py` or the matching unittest segment.
+- long arc smoke: run `python scripts/long_arc_smoke.py` or the matching unittest
+  segment.
 
 ## Boundary Check
 
@@ -34,4 +38,5 @@ Use this before publishing a zip or handing the build to another AI player.
 - README has Human Quick Start, AI Blind Play, and Developer / QA Mode.
 - `tool-schema.json` describes `new_game` and `cmd`.
 - `CO_PLAY_PROTOCOL.md` and `PLAY_SESSION_TEMPLATE.md` are included.
-- `DATA_REGISTRY_GUIDE.md` explains how to add registry items without making Silas/Yaya defaults global.
+- `DATA_REGISTRY_GUIDE.md` explains how to add registry items without making Silas/Yaya
+  defaults global.

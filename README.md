@@ -12,16 +12,21 @@ The AI plays by reading public command outputs and `STATE {...}` lines only; the
 human can watch through the Observer Console, co-play, interrupt, or judge the
 run.
 
-《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI 通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
+《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI
+通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
 
 ## What Makes It Different
 
-- AI-first play: the game is designed so AI agents can play through text commands without reading source tables.
-- Fair blind protocol: every action returns short narrative text plus one final `STATE {...}` line.
+- AI-first play: the game is designed so AI agents can play through text commands
+  without reading source tables.
+- Fair blind protocol: every action returns short narrative text plus one final
+  `STATE {...}` line.
 - Human observer: the browser Observer Console lets a human watch the AI's map,
   status, companion, wish, and latest output.
-- Cozy family arc: the goal is not combat-first survival, but turning a misty valley into a shared home.
-- Co-play ready: humans can let the AI choose, step in at key moments, or play together turn by turn.
+- Cozy family arc: the goal is not combat-first survival, but turning a misty valley
+  into a shared home.
+- Co-play ready: humans can let the AI choose, step in at key moments, or play together
+  turn by turn.
 
 ## Who It Is For
 
@@ -49,8 +54,10 @@ Every command returns short narrative text and exactly one final `STATE {...}` l
 
 Download the latest release:
 
-- `fox_river_valley_p1_2_text_only.zip`: pure text play, no live map, best for low-token AI co-play.
-- `fox_river_valley_p1_2_observer.zip`: text game plus local Observer Console and live mini-map for humans watching.
+- `fox_river_valley_p1_2_text_only.zip`: pure text play, no live map, best for low-token
+  AI co-play.
+- `fox_river_valley_p1_2_observer.zip`: text game plus local Observer Console and live
+  mini-map for humans watching.
 
 Text-only start:
 
@@ -134,7 +141,8 @@ Recommended AI rhythm:
 - Run 1-2 commands per turn.
 - Read the final `STATE {...}` line before deciding.
 - Use `recap` and `options` after pauses.
-- Ask the human before major milestones, danger, kit arrival, proposal, ceremony, or Game Over risk.
+- Ask the human before major milestones, danger, kit arrival, proposal, ceremony, or
+  Game Over risk.
 
 ## AI Co-play
 
@@ -294,5 +302,6 @@ __pycache__/
 - `CO_PLAY_PROTOCOL.md`: how an AI should co-play with a human instead of speedrunning.
 - `PLAY_SESSION_TEMPLATE.md`: turn template for shared play.
 - `TEXT_ONLY_PLAYER_GUIDE.md`: low-token pure text play.
-- `DATA_REGISTRY_GUIDE.md`: how to add data entries without making Silas/Yaya defaults global.
+- `DATA_REGISTRY_GUIDE.md`: how to add data entries without making Silas/Yaya defaults
+  global.
 - `RELEASE_CHECKLIST.md`: release verification checklist.

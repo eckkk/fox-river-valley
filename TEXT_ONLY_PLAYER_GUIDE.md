@@ -22,7 +22,8 @@ process. It still uses the same core game, save format, rules, and final
 - Prefer `look`, `status`, `inventory`, `options`, and `recap`.
 - Use `map` only when the player asks for spatial context.
 - Avoid pasting long transcripts back to the human player.
-- Stop and ask before major milestones, danger, kit arrival, proposal, ceremony, or Game Over risk.
+- Stop and ask before major milestones, danger, kit arrival, proposal, ceremony, or Game
+  Over risk.
 
 ## Start Modes
 

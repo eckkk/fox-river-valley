@@ -1,6 +1,7 @@
 # Data Registry Guide
 
-This guide is for future maintainers adding small data entries without turning Fox River Valley into a bigger system.
+This guide is for future maintainers adding small data entries without turning Fox River
+Valley into a bigger system.
 
 ## flower variety
 

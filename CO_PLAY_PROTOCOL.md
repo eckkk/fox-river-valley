@@ -87,7 +87,8 @@ check kits
 journal
 ```
 
-`recap` summarizes current context. `options` gives three rule-based choices. Neither command is an autoplayer.
+`recap` summarizes current context. `options` gives three rule-based choices. Neither
+command is an autoplayer.
 
 ## Boundaries
 
