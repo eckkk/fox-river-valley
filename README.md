@@ -2,18 +2,103 @@
 
 ## Game Introduction / 游戏介绍
 
-Fox River Valley is a cozy survival sandbox built for AI blind play and human observation.
+Fox River Valley is a cozy text-command survival sandbox built for AI blind play,
+human observation, and human-AI co-play.
+It is built for AI blind play and human observation first, with human-AI co-play
+as the natural table mode.
+
+《狐狸河谷》是一款给 AI 玩、给人类观战的文字指令温柔生存/家庭沙盒游戏。
+《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。
+
+![Fox River Valley Observer Console](docs/assets/observer_screenshot.png)
+
+## What is this?
 
 Fox River Valley is an AI-playable cozy survival and family sandbox.
+AI players gather, fish, build a home, plant flowers, cook, and explore by reading
+only public command output and the final `STATE {...}` line.
+The AI plays by reading public command outputs and `STATE {...}` lines only.
+
+Humans can watch the run through the local Observer Console, including the AI's
+map, status, companion wish, and latest action. The point is not combat-first
+survival or speedrunning; it is watching an AI slowly turn a misty valley into a
+home.
+
 It was first built for Silas / Cheng Zhihan to play through text commands, then
 expanded into a fair blind-play environment for other AI players.
 Cheng Zhihan's Chinese name is 程知寒.
-The AI plays by reading public command outputs and `STATE {...}` lines only; the
-human can watch through the Observer Console, co-play, interrupt, or judge the
-run.
 
-《狐狸河谷》是一款为 AI 玩家设计的文字指令温柔生存/家庭沙盒游戏。最初是给程知寒玩的，后来扩展为其他 AI 也能公平盲玩的测试场。AI
-通过公开命令采集、钓鱼、建家、种花、做饭和探索；人类通过观战页观看、共玩、裁决与调参。
+The Silas/Yaya demo is the original author test route and should remain optional.
+Public AI players should choose solo, custom family, or the explicit Silas/Yaya
+demo profile.
+
+## Current Version
+
+- Stable release: P1.2
+- Main branch: P1.3 feedback polish beta
+- P1.3 adds clearer public resource hints, water affordance, house progression
+  display, more small home decorations, tool crafting aliases, `stinky_shoe` joke
+  decor, and clearer food freshness display.
+
+## Quick Start for Humans
+
+Download a release zip from GitHub Releases:
+
+- Text-only package: best for low-token AI co-play or terminal-only sessions.
+- Observer package: best when a human wants to watch the AI in a browser.
+
+For the Observer package:
+
+1. Unzip `fox_river_valley_p1_2_observer.zip`.
+2. Double-click `Start_Fox_River_Valley.bat`.
+3. Choose Solo, Custom Family, or Silas/Yaya Demo in the browser.
+4. Use the command box or quick buttons to play.
+
+If the launcher cannot find Python, run this from the project root:
+
+```text
+python -m fox_river_valley.play
+```
+
+## Let Your AI Play
+
+Copy this prompt to ChatGPT, Kimi, Gemini, Claude, or another AI player:
+
+```text
+You are now an AI player for Fox River Valley / 狐狸河谷.
+
+Repository:
+https://github.com/eckkk/fox-river-valley
+
+Please perform a fair blind playtest.
+
+Rules:
+1. Read only public player docs such as README.md, AI_PLAYER_GUIDE.md, TEXT_ONLY_PLAYER_GUIDE.md, and CO_PLAY_PROTOCOL.md.
+2. Do not inspect source code, resource tables, probability tables, test files, or hidden conditions.
+3. Do not speedrun or brute-force commands.
+4. Decide each action only from public command output and the final STATE {...} line.
+5. Run 1-2 commands per turn.
+6. Stop and ask the human before major danger, home naming, commitment, proposal, ceremony, kit/family milestones, or Game Over risk.
+7. At the end, output a playtest transcript with commands, STATE summaries, decisions, confusion points, bugs, and suggestions.
+
+Goal:
+Test whether Fox River Valley works for AI blind play, human observation, and human-AI co-play.
+```
+
+## Feedback Wanted
+
+We are especially looking for:
+
+- Did your AI understand the rules without reading source code?
+- Did it get stuck finding water, fiber, wood, clay, food, or shelter?
+- Did Observer Console make the run fun to watch?
+- Did the AI make funny or surprisingly good decisions?
+- What buildings, decorations, tools, or events should be added next?
+- Please include the AI model used, start mode, transcript, and bugs.
+
+欢迎把你家 AI 的试玩记录、bug、吐槽和建议发回来。我们会优先改“AI 看不懂”和“人类观战不好玩”的地方。
+
+See `docs/FEEDBACK_GUIDE.md` for a fuller playtest feedback template.
 
 ## What Makes It Different
 
@@ -27,6 +112,8 @@ run.
   into a shared home.
 - Co-play ready: humans can let the AI choose, step in at key moments, or play together
   turn by turn.
+- Feedback-driven updates: external human-observed AI playtests directly shape
+  resource hints, home readability, observer clarity, and cozy failure moments.
 
 ## Who It Is For
 
@@ -34,9 +121,6 @@ run.
 - Humans who want to watch an AI make decisions in a persistent world.
 - Human-AI co-play experiments.
 - Developers testing AI-readable game interfaces.
-
-The Silas/Yaya demo is the original author test route and should remain optional.
-Public AI players should choose solo, custom family, or explicit Silas/Yaya demo.
 
 ## Technical API
 
@@ -52,7 +136,7 @@ Every command returns short narrative text and exactly one final `STATE {...}` l
 
 ## For players
 
-Download the latest release:
+Detailed release package names:
 
 - `fox_river_valley_p1_2_text_only.zip`: pure text play, no live map, best for low-token
   AI co-play.
@@ -304,6 +388,9 @@ __pycache__/
 - `CO_PLAY_PROTOCOL.md`: how an AI should co-play with a human instead of speedrunning.
 - `PLAY_SESSION_TEMPLATE.md`: turn template for shared play.
 - `TEXT_ONLY_PLAYER_GUIDE.md`: low-token pure text play.
+- `docs/FEEDBACK_GUIDE.md`: what to include when reporting an AI blind playtest.
+- `docs/assets/observer_screenshot.png`: public Observer Console screenshot used
+  on this README.
 - `DATA_REGISTRY_GUIDE.md`: how to add data entries without making Silas/Yaya defaults
   global.
 - `RELEASE_CHECKLIST.md`: release verification checklist.
