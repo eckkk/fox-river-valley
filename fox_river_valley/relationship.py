@@ -259,6 +259,13 @@ def _display_level(level: str | None) -> str:
     return HOME_LEVEL_DISPLAY.get(level, level)
 
 
+def _display_level_with_internal(level: str | None) -> str:
+    display = _display_level(level)
+    if level and display != level:
+        return f"{display} (internal: {level})"
+    return display
+
+
 def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
     ensure_home_fields(state)
     raw_target = "_".join(str(target).strip().lower().split())
@@ -322,7 +329,7 @@ def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
         return (
             [
                 "你把 plank 和 weathered wood 固定在 shelter 四周，又用 river_clay 补住缝隙。",
-                "home_level -> little_cabin；玩家路线显示为 small_cabin",
+                "home_level -> small_cabin (internal: little_cabin)",
             ],
             True,
         )
@@ -361,7 +368,7 @@ def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
         return (
             [
                 "你把 river_glass 嵌进光线来的地方，把 old_tile 压稳，又把柔软材料收进屋角。",
-                "home_level -> warm_cabin；玩家路线显示为 cozy_cabin",
+                "home_level -> cozy_cabin (internal: warm_cabin)",
             ],
             True,
         )
@@ -767,9 +774,10 @@ def home_lines(state: dict[str, Any]) -> list[str]:
     decor_text = ", ".join(decor_names) if decor_names else "none"
     level = state.get("home_level")
     route_label = _display_level(level)
+    home_level_text = _display_level_with_internal(level)
     return [
         f"home: {name}",
-        f"home_level: {state.get('home_level')}",
+        f"home_level: {home_level_text}",
         f"visible route: simple_shelter -> cabin_frame -> small_cabin -> cozy_cabin；current display: {route_label}",
         f"base_pos: {base_pos}",
         "base builds: " + (", ".join(builds) if builds else "none"),
@@ -777,7 +785,7 @@ def home_lines(state: dict[str, Any]) -> list[str]:
         f"storage: {storage_text}",
         f"stations: {station_text}",
         f"warmth protection: {warmth_protection(state)}",
-        f"保暖来源: {warmth_protection(state)} / home_level {state.get('home_level')}",
+        f"保暖来源: {warmth_protection(state)} / home_level {home_level_text}",
         f"comfort score: {state.get('home_comfort', 0)}",
         f"security score: {state.get('home_security', 0)}",
         f"family readiness hint: {family_readiness_hint(state)}",

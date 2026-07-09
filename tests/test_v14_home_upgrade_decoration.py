@@ -84,7 +84,7 @@ class V14HomeUpgradeDecorationTests(unittest.TestCase):
         loaded = parse_state(cmd("load"))
 
         self.assertEqual(loaded["home_level"], "little_cabin")
-        self.assertIn("home_level: little_cabin", cmd("home"))
+        self.assertIn("home_level: small_cabin (internal: little_cabin)", cmd("home"))
 
     def test_build_simple_bed_at_base(self):
         self.prepare_workshop_home()
@@ -164,7 +164,7 @@ class V14HomeUpgradeDecorationTests(unittest.TestCase):
 
         output = cmd("home")
 
-        self.assertIn("home_level: little_cabin", output)
+        self.assertIn("home_level: small_cabin (internal: little_cabin)", output)
         self.assertIn("comfort score:", output)
         self.assertIn("security score:", output)
         self.assertIn("family readiness hint:", output)

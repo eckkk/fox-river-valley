@@ -167,8 +167,50 @@ class P13FeedbackImplementationTests(unittest.TestCase):
         self.assertIn("stale_food", food)
         self.assertIn("即将变质", status)
 
+    def test_home_command_uses_player_facing_home_level_names(self):
+        self.prepare_workbench()
+        self.add_inventory({"plank": 4, "weathered_wood": 1, "river_clay": 1})
+        cmd("upgrade home to small_cabin")
+        home = cmd("home")
+        self.assertIn("home_level: small_cabin (internal: little_cabin)", home)
+        self.assertNotIn("home_level: little_cabin\n", home)
+
+        self.add_inventory({"stone": 3, "stick": 2})
+        cmd("build campfire")
+        self.add_inventory({"river_glass": 1, "old_tile": 1, "moss_thread": 1})
+        cmd("upgrade home to cozy_cabin")
+        home = cmd("home")
+        self.assertIn("home_level: cozy_cabin (internal: warm_cabin)", home)
+        self.assertNotIn("home_level: warm_cabin\n", home)
+
+    def test_door_charm_appears_in_decor_command(self):
+        self.prepare_workbench()
+        self.add_inventory({"stick": 1, "stinky_shoe": 1})
+        cmd("build door_charm")
+
+        decor = cmd("decor")
+
+        self.assertIn("door_charm", decor)
+        self.assertNotIn("- none", decor)
+
+    def test_player_friendly_craft_text_for_p13_tools(self):
+        self.prepare_workbench()
+        self.add_inventory({"fiber": 2, "stick": 3, "stone": 4, "clay": 1, "cord": 3, "reed": 2})
+
+        water_flask = cmd("craft water_flask")
+        basic_axe = cmd("craft basic_axe")
+        basket = cmd("craft basket")
+        repair_kit = cmd("craft repair_kit")
+
+        for output in (water_flask, basic_axe, basket, repair_kit):
+            self.assertNotIn("削出一根", output)
+        self.assertIn("水壶", water_flask)
+        self.assertIn("basic_axe", basic_axe)
+        self.assertIn("篮子", basket)
+        self.assertIn("修理包", repair_kit)
+
     def test_p13_playtest_notes_exist(self):
-        with open("PLAYTEST_P1_3_FEEDBACK_NOTES.md", encoding="utf-8") as handle:
+        with open("P1_3_FEEDBACK_NOTES.md", encoding="utf-8") as handle:
             text = handle.read()
 
         self.assertIn("first external human-observed AI playtest", text)
