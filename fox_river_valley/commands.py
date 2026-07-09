@@ -79,7 +79,7 @@ def _help_lines(rest: str, state: dict[str, Any]) -> list[str]:
     if topic:
         return [f"暂时没有 help {rest} 的详细页。可试试 help family、help serve、help weather。"]
     lines = [
-        "可用命令：status, runtime, recap, options, observer, open observer, calendar, weather, food, garden, inventory, storage, recipes, look, map, move, return home, relationship, home, decor, gather, chop, mine, fish, explore, plant, water crops, harvest, cook fish, make charcoal, make tea, make warm_meal, serve warm_meal, serve cooked_fish, serve berries, eat, wait, rest, sleep, check companion, ask companion, journal, goal, save, load。",
+        "可用命令：status, runtime, recap, options, observer, open observer, calendar, weather, food, garden, inventory, storage, recipes, look, inspect, map, move, return home, relationship, home, decor, gather, collect water, chop, mine, fish, explore, plant, water crops, harvest, cook fish, make charcoal, make tea, make warm_meal, serve warm_meal, serve cooked_fish, serve berries, eat, wait, rest, sleep, check companion, ask companion, journal, goal, save, load。",
         "家庭相关命令可用 help family 查看。常用详细页：help propose, help hold ceremony, help family readiness, help check kits, help deposit, help withdraw, help serve, help weather。",
     ]
     if state.get("mode") == "family":
@@ -158,6 +158,8 @@ def run_command(command: str, state: dict[str, Any]) -> tuple[str, dict[str, Any
         return render(recipe_lines(original, rest.lower() or None), original), original
     if action == "look":
         return render(actions.look(original), original), original
+    if action == "inspect":
+        return render(actions.inspect(original), original), original
     if action == "map":
         return render(actions.map_view(original), original), original
     if action == "relationship":
@@ -213,6 +215,9 @@ def run_command(command: str, state: dict[str, Any]) -> tuple[str, dict[str, Any
         return render(lines, next_state if ok else original), next_state if ok else original
     if action == "gather":
         return render(actions.gather(next_state), next_state), next_state
+    if action == "collect" and rest.lower() == "water":
+        lines, ok = actions.collect_water(next_state)
+        return render(lines, next_state if ok else original), next_state if ok else original
     if action == "chop":
         lines, ok = actions.chop(next_state)
         return render(lines, next_state if ok else original), next_state if ok else original

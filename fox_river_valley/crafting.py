@@ -104,6 +104,12 @@ def craft(state: dict[str, Any], item: str) -> tuple[list[str], bool]:
         text = "你把石片固定在木柄上，做出一把能翻开小块土地的 hoe。"
     elif item == "watering_can":
         text = "你把 clay 和 绳子（cord）整成一个粗朴的 watering_can，水能慢慢倒出来。"
+    elif item == "water_flask":
+        text = "你把 clay 捏成小水壶，又用 cord 固住瓶口，终于能把水带离河边。"
+    elif item == "basket":
+        text = "你把 reed 和 fiber 编成 basket，零碎材料有了一个能待着的地方。"
+    elif item == "repair_kit":
+        text = "你把能补、能绑、能垫的小材料收成 repair_kit，像给工具留了一次后悔机会。"
     elif item in {"plank", "cord", "paper", "cloth", "brick", "glass"}:
         text = f"你把原始材料慢慢整理成 {item_label(item)}，材料链往前走了一步。"
     elif item in {"shovel", "hammer"}:

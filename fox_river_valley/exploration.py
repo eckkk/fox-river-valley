@@ -149,6 +149,8 @@ def fish_catches(state: dict[str, Any], *, has_rod: bool) -> dict[str, int]:
     rare_roll = deterministic_int(str(state["seed"]), counter, "fish:rare_finding", 23)
     if rare_roll == 0:
         catches["old_boot"] = 1
+    elif rare_roll == 2:
+        catches["stinky_shoe"] = 1
     elif rare_roll in {1, 8}:
         catches["drift_bottle"] = 1
     return catches

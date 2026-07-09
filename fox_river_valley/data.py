@@ -76,8 +76,11 @@ RECIPES = {
     "fishing_rod": {"cost": {"stick": 2, "cord": 2}, "output": 1},
     "hoe": {"cost": {"stick": 1, "stone": 2, "cord": 1}, "output": 1},
     "watering_can": {"cost": {"clay": 2, "cord": 1}, "output": 1},
+    "water_flask": {"cost": {"clay": 1, "cord": 1}, "output": 1},
     "shovel": {"cost": {"stick": 1, "stone": 1, "cord": 1}, "output": 1},
     "hammer": {"cost": {"stick": 1, "stone": 2, "cord": 1}, "output": 1},
+    "basket": {"cost": {"reed": 2, "fiber": 1}, "output": 1},
+    "repair_kit": {"cost": {"stick": 1, "fiber": 1, "stone": 1}, "output": 1},
 }
 
 PROCESS_RECIPES = {
@@ -97,7 +100,10 @@ CRAFT_STATIONS = {
     "fishing_rod": "workbench",
     "hoe": "workbench",
     "watering_can": "workbench",
+    "water_flask": "workbench",
     "hammer": "workbench",
+    "basket": "workbench",
+    "repair_kit": "workbench",
 }
 
 BUILD_COSTS = {
@@ -111,6 +117,11 @@ BUILD_COSTS = {
     "simple_bed": {"plank": 2, "cloth": 1, "fiber": 2},
     "family_bed": {"plank": 4, "moss_thread": 1, "cloth": 2},
     "flower_pot": {},
+    "bedroll": {"fiber": 2},
+    "storage_shelf": {"plank": 2, "stick": 1},
+    "door_charm": {"stinky_shoe": 1, "stick": 1},
+    "tool_wall": {"plank": 2, "stick": 1},
+    "drying_rack": {"stick": 2, "fiber": 1},
     "glass_window": {"river_glass": 1, "plank": 1},
     "tile_floor": {"old_tile": 1, "stone": 2},
     "hearth": {"stone": 6, "river_clay": 1, "charcoal": 1},
@@ -135,6 +146,7 @@ FISH_SPECIES_ITEMS = {
 FINDING_ITEMS = {
     "drift_bottle",
     "old_boot",
+    "stinky_shoe",
     "map_fragment",
     "old_coin",
     "cracked_tile",
@@ -210,6 +222,7 @@ RAW_MATERIAL_ITEMS = {
     "seed_pod",
     "frost_flower_seed",
     "iron_ore",
+    "water",
     "dried_herb",
     "river_glass",
     "old_tile",
@@ -225,7 +238,18 @@ RAW_MATERIAL_ITEMS = {
     *RARE_CROP_YIELD_ITEMS,
 }
 PROCESSED_MATERIAL_ITEMS = {"stick", "plank", "cord", "charcoal", "brick", "glass", "paper", "cloth"}
-TOOL_ITEMS = {"stone_axe", "stone_pickaxe", "fishing_rod", "hoe", "watering_can", "shovel", "hammer"}
+TOOL_ITEMS = {
+    "stone_axe",
+    "stone_pickaxe",
+    "fishing_rod",
+    "hoe",
+    "watering_can",
+    "water_flask",
+    "shovel",
+    "hammer",
+    "basket",
+    "repair_kit",
+}
 
 ITEM_LABELS = {
     "warm_meal": "热饭",
@@ -240,10 +264,26 @@ ITEM_LABELS = {
     "stale_fish": "变味鱼",
     "dried_herb": "干香草",
     "cord": "绳子",
+    "water": "清水",
+    "water_flask": "水壶",
+    "repair_kit": "修理包",
+    "basket": "篮子",
+    "bedroll": "铺盖卷",
+    "storage_shelf": "储物架",
+    "door_charm": "门口小挂饰",
+    "tool_wall": "工具墙",
+    "drying_rack": "晾晒架",
+    "stinky_shoe": "臭鞋",
 }
 
 ITEM_ALIASES = {
     "rope": "cord",
+    "fiber cord": "cord",
+    "basic axe": "stone_axe",
+    "stone axe": "stone_axe",
+    "water flask": "water_flask",
+    "repair kit": "repair_kit",
+    "stinky shoe": "stinky_shoe",
     "warm meal": "warm_meal",
     "cooked fish": "cooked_fish",
     "stale food": "stale_food",

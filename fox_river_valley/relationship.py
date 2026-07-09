@@ -73,6 +73,15 @@ MILESTONE_LABELS = {
 }
 
 HOME_LEVELS = ("shelter", "little_cabin", "warm_cabin")
+HOME_LEVEL_DISPLAY = {
+    "shelter": "simple_shelter",
+    "little_cabin": "small_cabin",
+    "warm_cabin": "cozy_cabin",
+}
+HOME_TARGET_ALIASES = {
+    "small_cabin": "little_cabin",
+    "cozy_cabin": "warm_cabin",
+}
 
 STAGE_JOURNAL = {
     "surviving_together": "你们在狐狸河谷撑过了第一夜。这里还很简陋，但已经不是完全陌生的地方。",
@@ -205,7 +214,18 @@ def decor_lines(state: dict[str, Any]) -> list[str]:
     lines = ["decor:"]
     if decor.get("flower_pot"):
         lines.append(f"- flower_pot: {decor['flower_pot']}")
-    for item in ("glass_window", "tile_floor", "hearth", "simple_bed", "family_bed"):
+    for item in (
+        "bedroll",
+        "storage_shelf",
+        "door_charm",
+        "tool_wall",
+        "drying_rack",
+        "glass_window",
+        "tile_floor",
+        "hearth",
+        "simple_bed",
+        "family_bed",
+    ):
         if item in builds:
             lines.append(f"- {item}")
     if len(lines) == 1:
@@ -233,18 +253,51 @@ def _consume_materials(inventory: dict[str, int], required: dict[str, int]) -> N
             inventory.pop(item, None)
 
 
+def _display_level(level: str | None) -> str:
+    if level is None:
+        return "none"
+    return HOME_LEVEL_DISPLAY.get(level, level)
+
+
 def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
     ensure_home_fields(state)
+    raw_target = "_".join(str(target).strip().lower().split())
+    target = HOME_TARGET_ALIASES.get(raw_target, raw_target)
     inventory = state.setdefault("inventory", {})
     builds = base_builds(state)
     buddy = companion(state)
     if not shelter_exists(state) or state.get("base_pos") is None:
         return (["还没有 base，不能 upgrade home。"], False)
+    if raw_target == "cabin_frame":
+        if "cabin_frame" in builds:
+            return (["cabin_frame 已经立起来了，下一步可以考虑 small_cabin。"], False)
+        required = {"plank": 2, "stick": 2}
+        missing = _missing_materials(inventory, required)
+        if "workbench" not in builds:
+            missing.append("workbench")
+        if missing:
+            return ([f"材料不够：缺少 {', '.join(missing)}。"], False)
+        _consume_materials(inventory, required)
+        key = base_key(state)
+        if key is not None:
+            state.setdefault("builds", {}).setdefault(key, []).append("cabin_frame")
+        add_home_scores(state, security=1)
+        if buddy:
+            buddy["security"] = min(8, int(buddy.get("security", 0)) + 1)
+        add_journal(state, "你给 simple_shelter 加上 cabin_frame，家开始有了骨架。")
+        return (
+            [
+                "你把 plank 和 stick 一根根架上去，simple_shelter 外多了一圈 cabin_frame。",
+                "home route: simple_shelter -> cabin_frame -> small_cabin -> cozy_cabin",
+            ],
+            True,
+        )
     if target == "little_cabin":
         if state.get("home_level") not in {"shelter", None}:
             return ([f"home_level 已经是 {state.get('home_level')}。"], False)
         missing: list[str] = []
-        for build in ("workbench", "storage_box"):
+        required_builds = ("workbench",) if raw_target == "small_cabin" else ("workbench", "storage_box")
+        for build in required_builds:
             if build not in builds:
                 missing.append(build)
         missing.extend(_missing_materials(inventory, {"plank": 4, "river_clay": 1}))
@@ -265,11 +318,11 @@ def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
         if buddy:
             buddy["comfort"] = min(8, int(buddy.get("comfort", 0)) + 2)
             buddy["security"] = min(8, int(buddy.get("security", 0)) + 1)
-        add_journal(state, "你把 simple_shelter 加固成 little_cabin，家终于像能长期留下来。")
+        add_journal(state, "你把 simple_shelter 加固成 small_cabin，家终于像能长期留下来。")
         return (
             [
                 "你把 plank 和 weathered wood 固定在 shelter 四周，又用 river_clay 补住缝隙。",
-                "home_level -> little_cabin",
+                "home_level -> little_cabin；玩家路线显示为 small_cabin",
             ],
             True,
         )
@@ -304,11 +357,11 @@ def upgrade_home(state: dict[str, Any], target: str) -> tuple[list[str], bool]:
                 buddy["mood"] = min(8, int(buddy.get("mood", 0)) + 1)
         add_milestone(state, "home_warm_cabin")
         add_bond(state, 1, "upgrade:warm_cabin")
-        add_journal(state, "你把 little_cabin 升级成 warm_cabin，玻璃、旧砖和软线让家真正留住暖意。")
+        add_journal(state, "你把 small_cabin 升级成 cozy_cabin，玻璃、旧砖和软线让家真正留住暖意。")
         return (
             [
                 "你把 river_glass 嵌进光线来的地方，把 old_tile 压稳，又把柔软材料收进屋角。",
-                "home_level -> warm_cabin",
+                "home_level -> warm_cabin；玩家路线显示为 cozy_cabin",
             ],
             True,
         )
@@ -695,13 +748,29 @@ def home_lines(state: dict[str, Any]) -> list[str]:
     station_names = [name for name in ("workbench", "campfire", "hearth", "kiln", "loom") if name in builds]
     station_text = ", ".join(station_names) if station_names else "none"
     decor = state.get("home_decor", {})
-    decor_names = [item for item in ("flower_pot", "glass_window", "tile_floor") if item in decor]
+    decor_names = [
+        item
+        for item in (
+            "flower_pot",
+            "bedroll",
+            "storage_shelf",
+            "door_charm",
+            "tool_wall",
+            "drying_rack",
+            "glass_window",
+            "tile_floor",
+        )
+        if item in decor
+    ]
     if "hearth" in builds:
         decor_names.append("hearth")
     decor_text = ", ".join(decor_names) if decor_names else "none"
+    level = state.get("home_level")
+    route_label = _display_level(level)
     return [
         f"home: {name}",
         f"home_level: {state.get('home_level')}",
+        f"visible route: simple_shelter -> cabin_frame -> small_cabin -> cozy_cabin；current display: {route_label}",
         f"base_pos: {base_pos}",
         "base builds: " + (", ".join(builds) if builds else "none"),
         f"decorations: {decor_text}",

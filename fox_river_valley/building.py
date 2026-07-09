@@ -7,7 +7,7 @@ from . import calendar as calendar_rules
 from . import companion as companion_rules
 from . import farming
 from . import relationship as relationship_rules
-from .data import BUILD_COSTS, BUILD_STATIONS, FLOWER_VARIETY_ITEMS
+from .data import BUILD_COSTS, BUILD_STATIONS, FLOWER_VARIETY_ITEMS, normalize_item_id
 from .state import add_journal
 from .world import nearby_terrains, terrain_at, tile_key
 
@@ -20,6 +20,11 @@ HOME_ONLY_BUILDS = {
     "simple_bed",
     "family_bed",
     "flower_pot",
+    "bedroll",
+    "storage_shelf",
+    "door_charm",
+    "tool_wall",
+    "drying_rack",
     "glass_window",
     "tile_floor",
     "kiln",
@@ -125,6 +130,7 @@ def _build_flower_pot(state: dict[str, Any]) -> tuple[list[str], bool]:
 
 
 def build(state: dict[str, Any], item: str) -> tuple[list[str], bool]:
+    item = normalize_item_id(item)
     if item not in BUILD_COSTS:
         return ([f"现在还不会建造 {item}。"], False)
     if item == "garden_plot":
@@ -183,6 +189,11 @@ def build(state: dict[str, Any], item: str) -> tuple[list[str], bool]:
         "simple_bed",
         "family_bed",
         "flower_pot",
+        "bedroll",
+        "storage_shelf",
+        "door_charm",
+        "tool_wall",
+        "drying_rack",
         "glass_window",
         "tile_floor",
         "kiln",
@@ -220,6 +231,64 @@ def build(state: dict[str, Any], item: str) -> tuple[list[str], bool]:
             [
                 "你把 plank 架稳，又用 stick 固定出一张粗糙但可靠的 workbench。",
                 "建造完成：workbench",
+            ],
+            True,
+        )
+    if item == "bedroll":
+        companion_rules.adjust(state, comfort=1)
+        relationship_rules.add_home_scores(state, comfort=1)
+        relationship_rules.record_decor(state, "bedroll", True)
+        add_journal(state, "你铺好 bedroll，家里多了一个能随手躺下的小角落。")
+        return (
+            [
+                "你把 fiber 拧松又压平，铺成一卷不华丽但很会接住疲惫的 bedroll。",
+                "建造完成：bedroll",
+            ],
+            True,
+        )
+    if item == "storage_shelf":
+        companion_rules.adjust(state, comfort=1)
+        relationship_rules.add_home_scores(state, comfort=1)
+        relationship_rules.record_decor(state, "storage_shelf", True)
+        add_journal(state, "你搭好 storage_shelf，零散材料终于不用全挤在地上。")
+        return (
+            [
+                "你把 plank 架成一面小 storage_shelf，木枝、绳子和石片都像找到了座位。",
+                "建造完成：storage_shelf",
+            ],
+            True,
+        )
+    if item == "door_charm":
+        companion_rules.adjust(state, mood=1)
+        relationship_rules.record_decor(state, "door_charm", "stinky_shoe")
+        add_journal(state, "你把 stinky_shoe 挂成 door_charm，家门口多了一点很难解释的守护感。")
+        return (
+            [
+                "你把那只臭鞋（stinky_shoe）认真绑好，做成 door_charm。",
+                "它不优雅，但非常有观战价值。",
+                "建造完成：door_charm",
+            ],
+            True,
+        )
+    if item == "tool_wall":
+        companion_rules.adjust(state, comfort=1)
+        relationship_rules.add_home_scores(state, comfort=1)
+        relationship_rules.record_decor(state, "tool_wall", True)
+        add_journal(state, "你做出 tool_wall，工具第一次像长期住在这里。")
+        return (
+            [
+                "你把 plank 固定在墙边，把常用工具排成一小列 tool_wall。",
+                "建造完成：tool_wall",
+            ],
+            True,
+        )
+    if item == "drying_rack":
+        relationship_rules.record_decor(state, "drying_rack", True)
+        add_journal(state, "你搭好 drying_rack，香草和湿东西以后有了能晾一晾的地方。")
+        return (
+            [
+                "你用 stick 和 fiber 搭起一只 drying_rack，像给潮湿日子准备的笑话保险。",
+                "建造完成：drying_rack",
             ],
             True,
         )

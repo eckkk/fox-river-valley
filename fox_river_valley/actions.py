@@ -236,6 +236,31 @@ def inventory(state: dict[str, Any]) -> list[str]:
     other = {key: items[key] for key in sorted(items) if key not in grouped_keys}
     if other:
         lines.append("other: " + _format_item_counts(other))
+    lines.extend(_inventory_spoilage_lines(state))
+    return lines
+
+
+def _inventory_spoilage_lines(state: dict[str, Any]) -> list[str]:
+    inventory_items = state.get("inventory", {})
+    food_age = state.get("food_age", {})
+    near_expiry: dict[str, int] = {}
+    for item, limit in survival.PERISHABLE_DAYS.items():
+        count = int(inventory_items.get(item, 0))
+        if count <= 0:
+            continue
+        age = int(food_age.get(item, 0))
+        if age >= max(0, limit - 1):
+            near_expiry[item] = count
+    stale = {
+        item: int(inventory_items.get(item, 0))
+        for item in sorted(survival.STALE_ITEMS)
+        if int(inventory_items.get(item, 0)) > 0
+    }
+    lines: list[str] = []
+    if near_expiry:
+        lines.append("near expiry / 临期：" + _format_item_counts(near_expiry))
+    if stale:
+        lines.append("spoiled / 已变质：" + _format_item_counts(stale))
     return lines
 
 
@@ -448,8 +473,58 @@ def look(state: dict[str, Any]) -> list[str]:
     return [
         first,
         f"附近线索：{nearby}。",
-        "可尝试：map、move north、gather、journal。",
+        _public_resource_hint(state),
+        "可尝试：inspect、map、move north、gather、collect water、journal。",
     ]
+
+
+def inspect(state: dict[str, Any]) -> list[str]:
+    terrain = terrain_at(state["seed"], state["pos"])
+    return [
+        f"你蹲下来仔细看了看这片 {terrain}，只确认公开可见的线索，不翻隐藏表。",
+        _public_resource_hint(state),
+        "如果看见水声，可以试试 collect water；如果缺绳子，reeds near water may provide fiber。",
+    ]
+
+
+def _public_resource_hint(state: dict[str, Any]) -> str:
+    terrain = terrain_at(state["seed"], state["pos"])
+    nearby = set(nearby_terrains(state["seed"], state["pos"]))
+    water_hint = "near water: water 可用 water_flask 收集；reed 和 clay 常在水边。"
+    if terrain == "water" or "water" in nearby:
+        water_hint = "water is nearby: collect water 需要 water_flask；reeds near water may provide fiber；clay 在湿岸边更容易找到。"
+    terrain_hint = {
+        "forest": "forest: wood、branch、fiber、herb 常见。",
+        "grass": "grass: fiber、flower、berries、herb 较容易发现。",
+        "ruins": "ruins: stone、clay、paper 和旧材料线索更多。",
+        "hill": "hill: stone、clay、coal 更明显。",
+        "stone": "stone: stone、clay、coal 更明显。",
+        "cave": "cave: stone、coal、iron_ore 线索更多。",
+        "water": "water: fish、reed、clay 和 collect water 都值得尝试。",
+    }.get(terrain, "这里可以先 look、gather，再判断下一步。")
+    return f"公开资源线索：{terrain_hint} {water_hint} wood 来自 forest；fiber 来自 grass/forest/reed；reed、water、clay 多看水边。"
+
+
+def collect_water(state: dict[str, Any]) -> tuple[list[str], bool]:
+    terrain = terrain_at(state["seed"], state["pos"])
+    nearby = nearby_terrains(state["seed"], state["pos"])
+    if terrain != "water" and "water" not in nearby:
+        return (["这里暂时够不到水。look 或 inspect 可以帮你找 water 线索。"], False)
+    inventory_items = state.setdefault("inventory", {})
+    if inventory_items.get("water_flask", 0) <= 0:
+        return (["水声就在附近，但你需要 water_flask 才能把 water 带走。"], False)
+    if not can_add_item_stack(inventory_items, "water", 1):
+        return (["water 已经达到叠加上限，先整理背包或存进 storage。"], False)
+    add_item_stack(inventory_items, "water", 1)
+    advance_time(state)
+    return (
+        [
+            "你把 water_flask 伸进浅水里，等泥沙沉下去，装回一份清水。",
+            "获得：清水 x1（water）",
+            f"时间推进到 {state['time_slot']}。",
+        ],
+        True,
+    )
 
 
 def map_view(state: dict[str, Any]) -> list[str]:
